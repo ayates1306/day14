@@ -6,6 +6,8 @@
 using std::cout;
 using std::cin;
 
+#define RESOLVE_AMBIGUOUS_METHOD
+
 enum COLOUR {white, brown, black};
 
 class Horse {
@@ -55,6 +57,9 @@ public:
   Pegasus(int magic_rank, int age, int weight);
   ~Pegasus() { cout << "Pegasus destructor ";}
   int GetItsMagicRanking() const { return magic_ranking; }
+#ifdef RESOLVE_AMBIGUOUS_METHOD
+  COLOUR GetItsColour() const { return Bird::GetItsColour(); }
+#endif
 private:
   int magic_ranking;
 };
@@ -117,7 +122,11 @@ int main(void)
   cout << "its weight " << pPegasus->GetItsWeight() << "\n";
   // GetItsColour() is ambiguous since both base classes
   // has the same method
-  // cout << "its colour " << pPegasus->GetItsColour() << "\n";
+  // I can resolve this via fully specifying the class:
+  //  cout << "its colour " << pPegasus->GetItsColour() << "\n";
+  cout << "its colour " << pPegasus->Horse::GetItsColour() << "\n";
+  // or modifying the Pegasus class (as above I return the bird colour)
+  cout << "its colour " << pPegasus->GetItsColour() << "\n";
 
 
   delete pHorse1;
