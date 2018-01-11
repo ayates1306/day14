@@ -1,6 +1,7 @@
 // day 14
 // polymorphism continued
 // adding multiple inheritance
+// deliberately add a line here to learn about git merges
 
 #include <iostream>
 using std::cout;
